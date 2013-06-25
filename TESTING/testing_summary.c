@@ -1,5 +1,11 @@
+//
+// Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+//
+// Please see distribution for license.
+//
 
 #include <unistd.h>
+#include <stddef.h>
 
 #ifndef PYTHON_EXECUTABLE
 #error "Need to set python executable with -DPYTHON_EXECUTABLE"

@@ -315,3 +315,6 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${LAPACK_SOURCE_DIR}/lapack_tes
   WORKING_DIRECTORY ${LAPACK_BINARY_DIR}
   COMMAND ${PYTHON_EXECUTABLE} "lapack_testing.py"
  )
+
+add_definitions(-DPYTHON_EXECUTABLE=${PYTHON_EXECUTABLE})
+add_executable(testing_summary testing_summary.c)

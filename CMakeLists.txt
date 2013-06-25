@@ -1,13 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(LAPACK Fortran)
 
-# Configure the warning and code coverage suppression file
-configure_file( 
-  "${LAPACK_SOURCE_DIR}/CTestCustom.cmake.in"
-  "${LAPACK_BINARY_DIR}/CTestCustom.cmake"
-  COPYONLY
-)
-
 # Add the CMake directory for custon CMake modules
 set(CMAKE_MODULE_PATH "${LAPACK_SOURCE_DIR}/CMAKE" ${CMAKE_MODULE_PATH})
 
@@ -30,6 +23,13 @@ if (PYTHONINTERP_FOUND)
    message(STATUS "Using Python version ${PYTHON_VERSION_STRING}")
 endif()
 # --------------------------------------------------
+
+# Configure the warning and code coverage suppression file
+configure_file(
+  "${LAPACK_SOURCE_DIR}/CTestCustom.cmake.in"
+  "${LAPACK_BINARY_DIR}/CTestCustom.cmake"
+  @ONLY
+)
 
 # On Windows-GNU builds try to provide MS import libraries too.
 if(BUILD_SHARED_LIBS)

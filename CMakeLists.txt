@@ -90,7 +90,7 @@ set(SECOND_SRC  ${LAPACK_SOURCE_DIR}/INSTALL/second_${TIME_FUNC}.f)
 set(DSECOND_SRC  ${LAPACK_SOURCE_DIR}/INSTALL/dsecnd_${TIME_FUNC}.f)
 set(prefix ${CMAKE_INSTALL_PREFIX})
 set(libdir ${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX})
-set(PKG_CONFIG_DIR ${libdir}/pkgconfig)
+set(PKG_CONFIG_DIR lib/pkgconfig)
 
 # --------------------------------------------------
 # Precision to build
@@ -215,30 +215,28 @@ endif(LAPACKE)
 # --------------------------------------------------
 # CPACK Packaging 
 
-SET(CPACK_PACKAGE_NAME "LAPACK")
-SET(CPACK_PACKAGE_VENDOR "University of Tennessee, Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd")
-SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "LAPACK- Linear Algebra Package")
+SET(CPACK_GENERATOR "TGZ" "DEB" "RPM" "NSIS" "PackageMaker")
+SET(CPACK_PACKAGE_NAME "OG-Lapack")
+SET(CPACK_PACKAGE_VENDOR "OpenGamma")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "LAPACK - Linear Algebra Package")
 set(LAPACK_VERSION 3.4.2)
 set(CPACK_PACKAGE_VERSION_MAJOR 3)
 set(CPACK_PACKAGE_VERSION_MINOR 4)
 set(CPACK_PACKAGE_VERSION_PATCH 2)
+set(CPACK_PACKAGE_CONTACT "Graham Markall <graham@opengamma.com>")
+
+set(CPACK_DEBIAN_PACKAGE_NAME "og-lapack")
+set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6 (>= 2.3)")
+
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
-SET(CPACK_PACKAGE_INSTALL_DIRECTORY "LAPACK")
-IF(WIN32 AND NOT UNIX)
-  # There is a bug in NSI that does not handle full unix paths properly. Make
-  # sure there is at least one set of four (4) backlasshes.
-  SET(CPACK_NSIS_HELP_LINK "http:\\\\\\\\http://icl.cs.utk.edu/lapack-forum")
-  SET(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\www.netlib.org/lapack")
-  SET(CPACK_NSIS_CONTACT "lapack@eecs.utk.edu")
-  SET(CPACK_NSIS_MODIFY_PATH ON)
-  SET(CPACK_NSIS_DISPLAY_NAME "LAPACK-${LAPACK_VERSION}")
-  set(CPACK_PACKAGE_RELOCATABLE "true")
-ELSE(WIN32 AND NOT UNIX)
-  SET(CPACK_GENERATOR "TGZ")
-  SET(CPACK_SOURCE_GENERATOR TGZ)
-  SET(CPACK_SOURCE_PACKAGE_FILE_NAME "lapack-${LAPACK_VERSION}" )
-  SET(CPACK_SOURCE_IGNORE_FILES ~$ .svn ${CPACK_SOURCE_IGNORE_FILES} )
-ENDIF(WIN32 AND NOT UNIX)
+
+# There is a bug in NSI that does not handle full unix paths properly. Make
+# sure there is at least one set of four (4) backlasshes.
+SET(CPACK_NSIS_CONTACT "lapack@eecs.utk.edu")
+SET(CPACK_NSIS_MODIFY_PATH ON)
+SET(CPACK_NSIS_DISPLAY_NAME "LAPACK-${LAPACK_VERSION}")
+
 INCLUDE(CPack)
 
 

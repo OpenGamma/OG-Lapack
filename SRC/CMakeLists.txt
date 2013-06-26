@@ -414,7 +414,7 @@ endif()
 
 list(REMOVE_DUPLICATES ALLOBJ)
 
-add_library(lapack ${ALLOBJ} ${ALLXOBJ})
+add_library(lapack SHARED ${ALLOBJ} ${ALLXOBJ})
 set_target_properties(lapack PROPERTIES SOVERSION ${LAPACK_VERSION_MAJOR} VERSION ${LAPACK_VERSION})
 target_link_libraries(lapack ${BLAS_LIBRARIES} ${XBLAS_LIBRARY})
 lapack_install_library(lapack)

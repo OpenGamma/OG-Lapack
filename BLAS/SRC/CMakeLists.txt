@@ -136,7 +136,7 @@ if(BLAS_COMPLEX16)
 endif()
   
   
-add_library(blas ${ALLOBJ})
+add_library(blas SHARED ${ALLOBJ})
 set_target_properties(blas PROPERTIES SOVERSION ${LAPACK_VERSION_MAJOR} VERSION ${LAPACK_VERSION})
 if(UNIX)
   target_link_libraries(blas m)

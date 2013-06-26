@@ -3,8 +3,6 @@ project(LAPACK Fortran)
 
 enable_language(C)
 
-OPTION(BUILD_SHARED_LIBS "Build shared libraries" ON)
-
 set(LAPACK_VERSION_MAJOR 3)
 set(LAPACK_VERSION_MINOR 4)
 set(LAPACK_VERSION_PATCH 2)

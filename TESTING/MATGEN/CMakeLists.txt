@@ -70,7 +70,7 @@ set(ALLOBJ ${SMATGEN} ${CMATGEN} ${SCATGEN} ${DMATGEN} ${ZMATGEN}
 else()
   list(REMOVE_DUPLICATES ALLOBJ)
 endif()
-add_library(tmglib ${ALLOBJ} )
+add_library(tmglib SHARED ${ALLOBJ} )
 set_target_properties(tmglib PROPERTIES SOVERSION ${LAPACK_VERSION_MAJOR} VERSION ${LAPACK_VERSION})
 target_link_libraries(tmglib ${LAPACK_LIBRARIES})
 lapack_install_library(tmglib)

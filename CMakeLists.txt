@@ -3,6 +3,8 @@ project(LAPACK Fortran)
 
 enable_language(C)
 
+OPTION(BUILD_SHARED_LIBS "Build shared libraries" ON)
+
 # Add the CMake directory for custon CMake modules
 set(CMAKE_MODULE_PATH "${LAPACK_SOURCE_DIR}/CMAKE" ${CMAKE_MODULE_PATH})
 
@@ -240,11 +242,6 @@ SET(CPACK_NSIS_DISPLAY_NAME "LAPACK-${LAPACK_VERSION}")
 INCLUDE(CPack)
 
 
-# --------------------------------------------------
-# By default static library
-OPTION(BUILD_SHARED_LIBS "Build shared libraries" OFF )
-OPTION(BUILD_STATIC_LIBS "Build static libraries" ON )
-#OPTION(BUILD_SHARED_LIBS "Build shared libraries" ON )
 
 if(NOT BLAS_FOUND)
   set(ALL_TARGETS ${ALL_TARGETS} blas)

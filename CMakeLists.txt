@@ -3,8 +3,10 @@ project(LAPACK Fortran)
 
 enable_language(C)
 
-set(CMAKE_Fortran_OSX_COMPATIBILITY_VERSION_FLAG "-compatibility_version ")
-set(CMAKE_Fortran_OSX_CURRENT_VERSION_FLAG "-current_version ")
+if(APPLE)
+  set(CMAKE_Fortran_OSX_COMPATIBILITY_VERSION_FLAG "-compatibility_version ")
+  set(CMAKE_Fortran_OSX_CURRENT_VERSION_FLAG "-current_version ")
+endif(APPLE)
 
 set(LAPACK_VERSION_MAJOR 3)
 set(LAPACK_VERSION_MINOR 4)

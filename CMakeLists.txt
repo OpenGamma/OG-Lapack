@@ -6,6 +6,7 @@ enable_language(C)
 if(APPLE)
   set(CMAKE_Fortran_OSX_COMPATIBILITY_VERSION_FLAG "-compatibility_version ")
   set(CMAKE_Fortran_OSX_CURRENT_VERSION_FLAG "-current_version ")
+  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -Wl,-flat_namespace")
 endif(APPLE)
 
 set(LAPACK_VERSION_MAJOR 3)

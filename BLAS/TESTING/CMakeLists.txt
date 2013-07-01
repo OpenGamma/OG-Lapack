@@ -31,7 +31,7 @@ macro(add_blas_test name src)
   set(TEST_INPUT "${LAPACK_SOURCE_DIR}/BLAS/${baseNAME}.in")
   add_executable(${name} ${src})
   get_target_property(TEST_LOC ${name} LOCATION)
-  target_link_libraries(${name} blas)
+  target_link_libraries(${name} ogblas)
   if(EXISTS "${TEST_INPUT}")
     add_test(BLAS-${name} "${CMAKE_COMMAND}"
       -DTEST=${TEST_LOC}

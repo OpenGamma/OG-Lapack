@@ -193,7 +193,7 @@ set(ZLINTSTRFP  zchkrfp.f zdrvrfp.f zdrvrf1.f zdrvrf2.f zdrvrf3.f zdrvrf4.f zerr
 
 macro(add_lin_executable name )
   add_executable(${name} ${ARGN})
-  target_link_libraries(${name} tmglib ${LAPACK_LIBRARIES})
+  target_link_libraries(${name} ogblas oglapack ogtmglib ${LAPACK_LIBRARIES})
 endmacro(add_lin_executable)
 
 IF(BUILD_SINGLE)

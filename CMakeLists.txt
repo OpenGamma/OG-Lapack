@@ -29,6 +29,10 @@ if (UNIX)
    STRING(REPLACE \;mtsk\; \; CMAKE_Fortran_IMPLICIT_LINK_LIBRARIES "${CMAKE_Fortran_IMPLICIT_LINK_LIBRARIES}")
 endif ()
 
+if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--rpath -Wl,.")
+endif()
+
 # Get Python
 find_package(PythonInterp)
 message(STATUS "Looking for Python found - ${PYTHONINTERP_FOUND}")

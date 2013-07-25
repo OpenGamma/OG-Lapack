@@ -147,6 +147,7 @@ INCLUDE(CPack)
 
 set(ALL_TARGETS ${ALL_TARGETS} ogblas)
 set(ALL_TARGETS ${ALL_TARGETS} oglapack)
+set(ALL_TARGETS ${ALL_TARGETS} ogxerbla)
 set(ALL_TARGETS ${ALL_TARGETS} ogtmglib)
 export(TARGETS ${ALL_TARGETS} FILE lapack-targets.cmake)
 

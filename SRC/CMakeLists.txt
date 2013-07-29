@@ -48,7 +48,7 @@
 
 set(ALLAUX  ilaenv.f ieeeck.f lsamen.f  iparmq.f	
     ilaprec.f ilatrans.f ilauplo.f iladiag.f chla_transtype.f 
-    ../INSTALL/ilaver.f ../INSTALL/lsame.f xerbla.f xerbla_array.f
+    ../INSTALL/ilaver.f ../INSTALL/lsame.f xerbla_array.f
     ../INSTALL/slamch.f)
 
 set(ALLXAUX )
@@ -386,6 +386,8 @@ set(ZXLASRC  zgesvxx.f zgerfsx.f zla_gerfsx_extended.f zla_geamv.f
    zla_lin_berr.f zlarscl2.f zlascl2.f zla_wwaddw.f)
 
 
+set(XERBLA xerbla.f)   
+   
 if( USE_XBLAS)
   set(ALLXOBJ ${SXLASRC} ${DXLASRC} ${CXLASRC} ${ZXLASRC} ${ALLXAUX})
 endif()
@@ -414,7 +416,12 @@ endif()
 
 list(REMOVE_DUPLICATES ALLOBJ)
 
+add_library(ogxerbla SHARED ${XERBLA})
+set_target_properties(ogxerbla PROPERTIES SOVERSION ${LAPACK_VERSION_MAJOR} VERSION ${LAPACK_VERSION})
+lapack_install_library(ogxerbla)
+
 add_library(oglapack SHARED ${ALLOBJ} ${ALLXOBJ})
 set_target_properties(oglapack PROPERTIES SOVERSION ${LAPACK_VERSION_MAJOR} VERSION ${LAPACK_VERSION})
-target_link_libraries(oglapack ${BLAS_LIBRARIES} ${XBLAS_LIBRARY})
+target_link_libraries(oglapack ogxerbla ${BLAS_LIBRARIES} ${XBLAS_LIBRARY})
 lapack_install_library(oglapack)
+

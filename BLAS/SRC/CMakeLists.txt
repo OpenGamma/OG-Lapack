@@ -78,7 +78,7 @@ set(ZB1AUX idamax.f dasum.f daxpy.f dcopy.f dnrm2.f dscal.f)
 #  Level 2 and Level 3 BLAS.  Comment it out only if you already have
 #  both the Level 2 and 3 BLAS.
 #---------------------------------------------------------------------
-set(ALLBLAS  lsame.f xerbla.f xerbla_array.f)
+set(ALLBLAS  lsame.f)
 
 #---------------------------------------------------------
 #  Comment out the next 4 definitions if you already have
@@ -134,10 +134,16 @@ if(BLAS_COMPLEX16)
   set(ALLOBJ  ${BLASLIB} ${ZBLAS1} ${ZB1AUX} 
 	${ALLBLAS} ${ZBLAS2} ${ZBLAS3})
 endif()
-  
+
+set(XERBLA xerbla.f)   
+
+add_library(ogxerbla SHARED ${XERBLA})
+set_target_properties(ogxerbla PROPERTIES SOVERSION ${LAPACK_VERSION_MAJOR} VERSION ${LAPACK_VERSION})
+lapack_install_library(ogxerbla)
   
 add_library(ogblas SHARED ${ALLOBJ})
 set_target_properties(ogblas PROPERTIES SOVERSION ${LAPACK_VERSION_MAJOR} VERSION ${LAPACK_VERSION})
+target_link_libraries(ogblas ogxerbla)
 if(UNIX)
   target_link_libraries(ogblas m)
 endif()

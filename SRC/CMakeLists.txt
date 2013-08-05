@@ -386,7 +386,6 @@ set(ZXLASRC  zgesvxx.f zgerfsx.f zla_gerfsx_extended.f zla_geamv.f
    zla_lin_berr.f zlarscl2.f zlascl2.f zla_wwaddw.f)
 
 
-set(XERBLA xerbla.f)   
    
 if( USE_XBLAS)
   set(ALLXOBJ ${SXLASRC} ${DXLASRC} ${CXLASRC} ${ZXLASRC} ${ALLXAUX})
@@ -415,10 +414,6 @@ if (NOT ALLOBJ)
 endif()
 
 list(REMOVE_DUPLICATES ALLOBJ)
-
-add_library(ogxerbla SHARED ${XERBLA})
-set_target_properties(ogxerbla PROPERTIES SOVERSION ${LAPACK_VERSION_MAJOR} VERSION ${LAPACK_VERSION})
-lapack_install_library(ogxerbla)
 
 add_library(oglapack SHARED ${ALLOBJ} ${ALLXOBJ})
 set_target_properties(oglapack PROPERTIES SOVERSION ${LAPACK_VERSION_MAJOR} VERSION ${LAPACK_VERSION})

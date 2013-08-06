@@ -77,6 +77,7 @@
 *     ..
 *     .. Executable Statements ..
 *
+      print*,"IN XERBLA FROM SRC/LAPACK"
       WRITE( *, FMT = 9999 )SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO
 *
       STOP

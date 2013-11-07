@@ -12,8 +12,8 @@ import os, sys, math
 import getopt
 # Arguments
 try:
-   opts, args = getopt.getopt(sys.argv[1:], "hd:srep:t:n", 
-                              ["help", "dir", "short", "run", "error","prec=","test=","number"])
+   opts, args = getopt.getopt(sys.argv[1:], "hd:srep:t:ni:",
+                              ["help", "dir", "short", "run", "error","prec=","test=","number","instructionSet"])
    
 except getopt.error, msg:
    print msg
@@ -26,13 +26,14 @@ just_errors = 0
 prec='x'
 test='all'
 only_numbers=0
+instr_set=""
 dir="TESTING"
 for o, a in opts:
    if o in ("-h", "--help"):
-      print sys.argv[0]+" [-h|--help] [-d dir |--dir dir] [-s |--short] [-r |--run] [-e |--error] [-p p |--prec p] [-t test |--test test] [-n | --number]"
+      print sys.argv[0]+" [-h|--help] [-d dir |--dir dir] [-s |--short] [-r |--run] [-e |--error] [-p p |--prec p] [-t test |--test test] [-n | --number] [-i instructionSet | --instructionSet=]"
       print "     - h is to print this message"
-      print "     - r is to use to run the LAPACK tests then analyse the output (.out files). By default, the script will not run all the LAPACK tests"
-      print "     - d [dir] is to indicate where is the LAPACK testing directory (.out files). By default, the script will use ."
+      print "     - r is to use to run the LAPACK tests then analyse the output (.out_ files). By default, the script will not run all the LAPACK tests"
+      print "     - d [dir] is to indicate where is the LAPACK testing directory (.out_ files). By default, the script will use ."
       print " LEVEL OF OUTPUT"
       print "     - x is to print a detailed summary"
       print "     - e is to print only the error summary"
@@ -53,6 +54,7 @@ for o, a in opts:
       print "            mixed=mixed-precision"
       print "            rfp=rfp format"
       print "            all=all tests [DEFAULT]"
+      print "     - i  [dbg/std/sse41/avx1] the instruction set to use."
       print " EXAMPLES:"
       print "     ./lapack_testing.py -n"
       print "            Will return the numbers of failed tests by analyzing the LAPACK output"
@@ -78,6 +80,10 @@ for o, a in opts:
       if o in ( '-n', '--number' ):
          only_numbers = 1
          short_summary = 1
+      if o in ( "-i" , "--instructionSet" ):
+         instr_set = a
+
+print "instruction set is: " + instr_set
 
 # process options
 os.chdir(dir)
@@ -245,20 +251,20 @@ for dtype in range_prec:
      if dtest==16 and (letter=="s" or letter=="c"):
         continue
      if (with_file==1):
-        cmdbase=dtests[2][dtest]+".out"
+        cmdbase=dtests[2][dtest]+".out_"+instr_set
      else:
         if dtest==15:
            # LIN TESTS
-           cmdbase="xlintst"+letter+" < "+dtests[0][dtest]+".in > "+dtests[2][dtest]+".out"
+           cmdbase="xlintst"+letter+" < "+dtests[0][dtest]+".in > "+dtests[2][dtest]+".out_"+instr_set
         elif dtest==16:
            # PROTO LIN TESTS
-           cmdbase="xlintst"+letter+dtypes[0][dtype-1]+" < "+dtests[0][dtest]+".in > "+dtests[2][dtest]+".out"
+           cmdbase="xlintst"+letter+dtypes[0][dtype-1]+" < "+dtests[0][dtest]+".in > "+dtests[2][dtest]+".out_"+instr_set
         elif dtest==17:
            # PROTO LIN TESTS
-           cmdbase="xlintstrf"+letter+" < "+dtests[0][dtest]+".in > "+dtests[2][dtest]+".out"
+           cmdbase="xlintstrf"+letter+" < "+dtests[0][dtest]+".in > "+dtests[2][dtest]+".out_"+instr_set
         else:
            # EIG TESTS
-           cmdbase="xeigtst"+letter+" < "+dtests[0][dtest]+".in > "+dtests[2][dtest]+".out"
+           cmdbase="xeigtst"+letter+" < "+dtests[0][dtest]+".in > "+dtests[2][dtest]+".out_"+instr_set
      if (not just_errors and not short_summary):
         print "-->  Testing "+name+" "+dtests[1][dtest]+" [ "+cmdbase+" ]"
      # Run the process: either to read the file or run the LAPACK testing   

@@ -144,12 +144,11 @@ add_multitarget_library(ogxerbla
                         TARGETS ${TARGET_TYPES}
                         LINK_LIBRARIES "")
 
+set(LINK_MULTILIBRARIES ogblas ogxerbla)
 if(UNIX)
   set(LINK_LIBRARIES m)
-  set(LINK_MULTILIBRARIES ogblas)
 else()
   set(LINK_LIBRARIES "")
-  set(LINK_MULTILIBRARIES ogblas ogxerbla)
 endif()
 
 add_multitarget_library(ogblas

@@ -118,14 +118,12 @@ set(ZEIGTST  zchkee.f
    zstt21.f zstt22.f zunt01.f zunt03.f)
 
 macro(add_eig_executable name )
-#   add_executable(${name} ${ARGN})
-#   target_link_libraries(${name} ogblas oglapack ogtmglib ${LAPACK_LIBRARIES})
   add_multitarget_binary(${name}
                         VERSION ${LAPACK_VERSION}
                         SOVERSION ${LAPACK_VERSION_MAJOR}
                         SOURCES ${ARGN}
                         TARGETS ${TARGET_TYPES}
-                        LINK_MULTILIBRARIES ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES}
+                        LINK_MULTILIBRARIES ogblas oglapack ogtmglib
                         LINK_LIBRARIES "")
 endmacro(add_eig_executable)
 

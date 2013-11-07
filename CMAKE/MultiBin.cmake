@@ -24,10 +24,8 @@ function(add_multitarget_binary _TARGET_NAME)
                         ${ARGN})
   foreach(TARGET ${MTBIN_TARGETS})
     set(BINNAME ${_TARGET_NAME}_${TARGET})
-    add_library(${BINNAME} SHARED ${MTBIN_SOURCES})
+    add_executable(${BINNAME} ${MTBIN_SOURCES})
     set_target_properties(${BINNAME} PROPERTIES
-                          VERSION ${MTBIN_VERSION}
-                          SOVERSION ${MTBIN_SOVERSION}
                           COMPILE_FLAGS ${OPT_FLAGS_${TARGET}})
     foreach(LINK_LIB ${MTBIN_LINK_MULTILIBRARIES})
       target_link_libraries(${BINNAME} ${LINK_LIB}_${TARGET})
@@ -40,7 +38,7 @@ function(add_multitarget_binary _TARGET_NAME)
     endforeach()
     foreach(DEPENDENCY ${MTBIN_MULTI_DEPENDS})
       add_dependencies(${BINNAME} ${DEPENDENCY}_${TARGET})
-    endforeach()   
+    endforeach()
   endforeach()
 endfunction()
 

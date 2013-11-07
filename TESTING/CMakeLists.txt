@@ -7,20 +7,25 @@ endif()
 add_subdirectory(MATGEN)
 add_subdirectory(LIN)
 add_subdirectory(EIG)
+
 macro(add_lapack_test output input target)
-  set(TEST_INPUT "${LAPACK_SOURCE_DIR}/TESTING/${input}")
-  set(TEST_OUTPUT "${LAPACK_BINARY_DIR}/TESTING/${output}")
-  get_target_property(TEST_LOC ${target} LOCATION)
-  string(REPLACE "." "_" input_name ${input})
-  set(testName "${target}_${input_name}")
-  if(EXISTS "${TEST_INPUT}")
-    add_test(LAPACK-${testName} "${CMAKE_COMMAND}"
-      -DTEST=${TEST_LOC}
-      -DINPUT=${TEST_INPUT} 
-      -DOUTPUT=${TEST_OUTPUT} 
-      -DINTDIR=${CMAKE_CFG_INTDIR}
-      -P "${LAPACK_SOURCE_DIR}/TESTING/runtest.cmake")
-  endif()
+  foreach(TARGET ${TARGET_TYPES})
+    if(SUPPORT_${TARGET})
+      set(TEST_INPUT "${LAPACK_SOURCE_DIR}/TESTING/${input}")
+      set(TEST_OUTPUT "${LAPACK_BINARY_DIR}/TESTING/${output}")
+      get_target_property(TEST_LOC ${target}_${TARGET} LOCATION)
+      string(REPLACE "." "_" input_name ${input})
+      set(testName "${target}_${input_name}")
+      if(EXISTS "${TEST_INPUT}")
+        add_test(LAPACK-${testName}-arch-${TARGET} "${CMAKE_COMMAND}"
+          -DTEST=${TEST_LOC}
+          -DINPUT=${TEST_INPUT} 
+          -DOUTPUT=${TEST_OUTPUT} 
+          -DINTDIR=${CMAKE_CFG_INTDIR}
+          -P "${LAPACK_SOURCE_DIR}/TESTING/runtest.cmake")
+      endif()
+    endif()
+  endforeach()
 endmacro(add_lapack_test)
 
 if (BUILD_SINGLE)

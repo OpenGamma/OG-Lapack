@@ -192,8 +192,15 @@ set(ZLINTSTRFP  zchkrfp.f zdrvrfp.f zdrvrf1.f zdrvrf2.f zdrvrf3.f zdrvrf4.f zerr
   chkxer.f xerbla.f alaerh.f aladhd.f alahd.f alasvm.f )
 
 macro(add_lin_executable name )
-  add_executable(${name} ${ARGN})
-  target_link_libraries(${name} ogblas oglapack ogtmglib ${LAPACK_LIBRARIES})
+#   add_executable(${name} ${ARGN})
+#   target_link_libraries(${name} ogblas oglapack ogtmglib ${LAPACK_LIBRARIES})
+  add_multitarget_binary(${name}
+                        VERSION ${LAPACK_VERSION}
+                        SOVERSION ${LAPACK_VERSION_MAJOR}
+                        SOURCES ${ARGN}
+                        TARGETS ${TARGET_TYPES}
+                        LINK_MULTILIBRARIES ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES}
+                        LINK_LIBRARIES "")
 endmacro(add_lin_executable)
 
 IF(BUILD_SINGLE)

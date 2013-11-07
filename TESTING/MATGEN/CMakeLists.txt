@@ -70,7 +70,11 @@ set(ALLOBJ ${SMATGEN} ${CMATGEN} ${SCATGEN} ${DMATGEN} ${ZMATGEN}
 else()
   list(REMOVE_DUPLICATES ALLOBJ)
 endif()
-add_library(ogtmglib SHARED ${ALLOBJ} )
-set_target_properties(ogtmglib PROPERTIES SOVERSION ${LAPACK_VERSION_MAJOR} VERSION ${LAPACK_VERSION})
-target_link_libraries(ogtmglib ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
-lapack_install_library(ogtmglib)
+
+add_multitarget_library(ogtmglib
+                        VERSION ${LAPACK_VERSION}
+                        SOVERSION ${LAPACK_VERSION_MAJOR}
+                        SOURCES ${ALLOBJ}
+                        TARGETS ${TARGET_TYPES}
+                        LINK_MULTILIBRARIES ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES}
+                        LINK_LIBRARIES "")

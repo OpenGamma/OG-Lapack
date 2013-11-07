@@ -386,7 +386,6 @@ set(ZXLASRC  zgesvxx.f zgerfsx.f zla_gerfsx_extended.f zla_geamv.f
    zla_lin_berr.f zlarscl2.f zlascl2.f zla_wwaddw.f)
 
 
-   
 if( USE_XBLAS)
   set(ALLXOBJ ${SXLASRC} ${DXLASRC} ${CXLASRC} ${ZXLASRC} ${ALLXAUX})
 endif()
@@ -415,8 +414,11 @@ endif()
 
 list(REMOVE_DUPLICATES ALLOBJ)
 
-add_library(oglapack SHARED ${ALLOBJ} ${ALLXOBJ})
-set_target_properties(oglapack PROPERTIES SOVERSION ${LAPACK_VERSION_MAJOR} VERSION ${LAPACK_VERSION})
-target_link_libraries(oglapack ogxerbla ${BLAS_LIBRARIES} ${XBLAS_LIBRARY})
-lapack_install_library(oglapack)
+add_multitarget_library(oglapack
+                        VERSION ${LAPACK_VERSION}
+                        SOVERSION ${LAPACK_VERSION_MAJOR}
+                        SOURCES ${ALLOBJ} ${ALLXOBJ}
+                        TARGETS ${TARGET_TYPES}
+                        LINK_MULTILIBRARIES ogxerbla ${BLAS_LIBRARIES} ${XBLAS_LIBRARY}
+                        LINK_LIBRARIES "")
 

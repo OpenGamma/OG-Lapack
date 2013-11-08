@@ -142,7 +142,7 @@ add_multitarget_library(ogxerbla
                         SOVERSION ${LAPACK_VERSION_MAJOR}
                         SOURCES ${XERBLA}
                         TARGETS ${TARGET_TYPES}
-                        LINK_LIBRARIES "")
+                        )
 
 set(LINK_MULTILIBRARIES ogblas ogxerbla)
 if(UNIX)
@@ -158,4 +158,4 @@ add_multitarget_library(ogblas
                         TARGETS ${TARGET_TYPES}
                         LINK_MULTILIBRARIES ${LINK_MULTILIBRARIES}
                         LINK_LIBRARIES ${LINK_LIBRARIES}
-                        MULTI_DEPENDS ogxerbla)
+                        )

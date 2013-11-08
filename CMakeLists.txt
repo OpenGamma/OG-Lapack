@@ -24,14 +24,18 @@ set(LAPACK_VERSION ${LAPACK_VERSION_MAJOR}.${LAPACK_VERSION_MINOR}.${LAPACK_VERS
 # Append local module folder to module path
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMAKE ${CMAKE_MODULE_PATH})
 
+# fix for fortran support to get version correct
+if(APPLE)
+  set(CMAKE_Fortran_OSX_COMPATIBILITY_VERSION_FLAG "-compatibility_version ")
+  set(CMAKE_Fortran_OSX_CURRENT_VERSION_FLAG "-current_version ")
+endif(APPLE)
+
 # languages
 enable_language(Fortran)
 enable_language(C)
 
 # use flat namespace
 if(APPLE)
-  set(CMAKE_Fortran_OSX_COMPATIBILITY_VERSION_FLAG "-compatibility_version ")
-  set(CMAKE_Fortran_OSX_CURRENT_VERSION_FLAG "-current_version ")
   set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -Wl,-flat_namespace")
 endif(APPLE)
 
@@ -77,10 +81,8 @@ enable_testing()
 include( CheckLAPACKCompilerFlags )
 CheckLAPACKCompilerFlags()
 
-# Multi-target libraries need to be built
-include(MultiLib)
-# Multi-target binaries need to be built
-include(MultiBin)
+# Multi-targets need to be built
+include(MultiInstructionTarget)
 set(TARGET_TYPES dbg std sse41 avx1)
 
 

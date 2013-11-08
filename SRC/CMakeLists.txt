@@ -419,6 +419,6 @@ add_multitarget_library(oglapack
                         SOVERSION ${LAPACK_VERSION_MAJOR}
                         SOURCES ${ALLOBJ} ${ALLXOBJ}
                         TARGETS ${TARGET_TYPES}
-                        LINK_MULTILIBRARIES ogxerbla ${BLAS_LIBRARIES} ${XBLAS_LIBRARY}
+                        LINK_MULTILIBRARIES ${BLAS_LIBRARIES} ${XBLAS_LIBRARY} ogxerbla
                         LINK_LIBRARIES "")
 

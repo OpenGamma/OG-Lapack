@@ -57,7 +57,7 @@ set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${CMAKE_THREAD_LIBS_INIT}")
 # Use the native assembler on Apple in order to be able to generate AVX instructions.
 if(APPLE)
   set(CMAKE_C_FLAGS "-Wa,-q ${CMAKE_C_FLAGS}")
-  set(CMAKE_Fortran_FLAGS "-Wa,-q ${CMAKE_C_FLAGS}")
+  set(CMAKE_Fortran_FLAGS "${CMAKE_C_FLAGS}")
 endif()
 
 # fix rpath

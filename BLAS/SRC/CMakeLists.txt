@@ -135,17 +135,27 @@ if(BLAS_COMPLEX16)
 	${ALLBLAS} ${ZBLAS2} ${ZBLAS3})
 endif()
 
-set(XERBLA xerbla.f)   
+set(XERBLA xerbla.f)
 
-add_library(ogxerbla SHARED ${XERBLA})
-set_target_properties(ogxerbla PROPERTIES SOVERSION ${LAPACK_VERSION_MAJOR} VERSION ${LAPACK_VERSION})
-lapack_install_library(ogxerbla)
-  
-add_library(ogblas SHARED ${ALLOBJ})
-set_target_properties(ogblas PROPERTIES SOVERSION ${LAPACK_VERSION_MAJOR} VERSION ${LAPACK_VERSION})
-target_link_libraries(ogblas ogxerbla)
+add_multitarget_library(ogxerbla
+                        VERSION ${LAPACK_VERSION}
+                        SOVERSION ${LAPACK_VERSION_MAJOR}
+                        SOURCES ${XERBLA}
+                        TARGETS ${TARGET_TYPES}
+                        )
+
+set(LINK_MULTILIBRARIES ogblas ogxerbla)
 if(UNIX)
-  target_link_libraries(ogblas m)
+  set(LINK_LIBRARIES m)
+else()
+  set(LINK_LIBRARIES "")
 endif()
-target_link_libraries(ogblas)
-lapack_install_library(ogblas)
+
+add_multitarget_library(ogblas
+                        VERSION ${LAPACK_VERSION}
+                        SOVERSION ${LAPACK_VERSION_MAJOR}
+                        SOURCES ${ALLOBJ}
+                        TARGETS ${TARGET_TYPES}
+                        LINK_MULTILIBRARIES ${LINK_MULTILIBRARIES}
+                        LINK_LIBRARIES ${LINK_LIBRARIES}
+                        )

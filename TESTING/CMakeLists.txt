@@ -7,20 +7,29 @@ endif()
 add_subdirectory(MATGEN)
 add_subdirectory(LIN)
 add_subdirectory(EIG)
+
 macro(add_lapack_test output input target)
-  set(TEST_INPUT "${LAPACK_SOURCE_DIR}/TESTING/${input}")
-  set(TEST_OUTPUT "${LAPACK_BINARY_DIR}/TESTING/${output}")
-  get_target_property(TEST_LOC ${target} LOCATION)
-  string(REPLACE "." "_" input_name ${input})
-  set(testName "${target}_${input_name}")
-  if(EXISTS "${TEST_INPUT}")
-    add_test(LAPACK-${testName} "${CMAKE_COMMAND}"
-      -DTEST=${TEST_LOC}
-      -DINPUT=${TEST_INPUT} 
-      -DOUTPUT=${TEST_OUTPUT} 
-      -DINTDIR=${CMAKE_CFG_INTDIR}
-      -P "${LAPACK_SOURCE_DIR}/TESTING/runtest.cmake")
-  endif()
+  foreach(TARGET ${TARGET_TYPES})
+    if(SUPPORT_${TARGET})
+      set(TEST_INPUT_BASENAME "${LAPACK_SOURCE_DIR}/TESTING/${input}")
+      set(TEST_INPUT_BASENAME_TARGETTED "${CMAKE_BINARY_DIR}/TESTING/${input}_${TARGET}")
+      set(TEST_OUTPUT_BASENAME_TARGETTED "${CMAKE_BINARY_DIR}/TESTING/${output}_${TARGET}")
+      configure_file(${TEST_INPUT_BASENAME} ${TEST_INPUT_BASENAME_TARGETTED} COPYONLY)
+      set(TEST_INPUT ${TEST_INPUT_BASENAME_TARGETTED})
+      set(TEST_OUTPUT ${TEST_OUTPUT_BASENAME_TARGETTED})
+      get_target_property(TEST_LOC ${target}_${TARGET} LOCATION)
+      string(REPLACE "." "_" input_name ${input})
+      set(testName "${target}_${input_name}")
+      if(EXISTS "${TEST_INPUT}")
+        add_test(LAPACK-${testName}-${TARGET} "${CMAKE_COMMAND}"
+          -DTEST=${TEST_LOC}
+          -DINPUT=${TEST_INPUT} 
+          -DOUTPUT=${TEST_OUTPUT} 
+          -DINTDIR=${CMAKE_CFG_INTDIR}
+          -P "${LAPACK_SOURCE_DIR}/TESTING/runtest.cmake")
+      endif()
+    endif()
+  endforeach()
 endmacro(add_lapack_test)
 
 if (BUILD_SINGLE)
@@ -310,11 +319,12 @@ endif()
 # ==============================================================================
 
 execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${LAPACK_SOURCE_DIR}/lapack_testing.py ${LAPACK_BINARY_DIR})
- add_test(
-  NAME LAPACK_Test_Summary
-  WORKING_DIRECTORY ${LAPACK_BINARY_DIR}
-  COMMAND ${PYTHON_EXECUTABLE} "lapack_testing.py"
- )
-
-add_definitions(-DPYTHON_EXECUTABLE=${PYTHON_EXECUTABLE})
-add_executable(testing_summary testing_summary.c)
+foreach(TARGET ${TARGET_TYPES})
+  if(SUPPORT_${TARGET})
+    add_test(
+      NAME LAPACK_Test_Summary_for_${TARGET}
+      WORKING_DIRECTORY ${LAPACK_BINARY_DIR}
+      COMMAND ${PYTHON_EXECUTABLE} "lapack_testing.py" "-i" "${TARGET}"
+    )
+  endif()
+endforeach()

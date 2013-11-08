@@ -28,11 +28,12 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMAKE ${CMAKE_MODULE_PATH})
 enable_language(Fortran)
 enable_language(C)
 
-# Check for any necessary platform specific compiler flags
-# this is from the original LAPACK cmake build, in our case makes sure 
-# FPE traps aren't on by accident or intent!
-include( CheckLAPACKCompilerFlags )
-CheckLAPACKCompilerFlags()
+# use flat namespace
+if(APPLE)
+  set(CMAKE_Fortran_OSX_COMPATIBILITY_VERSION_FLAG "-compatibility_version ")
+  set(CMAKE_Fortran_OSX_CURRENT_VERSION_FLAG "-current_version ")
+  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -Wl,-flat_namespace")
+endif(APPLE)
 
 # Get Python
 find_package(PythonInterp)
@@ -69,6 +70,12 @@ endif()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${LAPACK_BINARY_DIR}/bin)
 
 enable_testing()
+
+# Check for any necessary platform specific compiler flags
+# this is from the original LAPACK cmake build, in our case makes sure 
+# FPE traps aren't on by accident or intent!
+include( CheckLAPACKCompilerFlags )
+CheckLAPACKCompilerFlags()
 
 # Multi-target libraries need to be built
 include(MultiLib)

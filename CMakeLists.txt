@@ -76,15 +76,9 @@ include(MultiLib)
 include(MultiBin)
 set(TARGET_TYPES dbg std sse41 avx1)
 
-# Tweak flags. These flags are similar to --ffast-math, except:
-# -funsafe-math-optimizations is missing as it messes with the FPU control word
-# which can cause segfaults when running through the JNI interface.
-# -ffinite-math-only is missing as it messes with NaN and Inf in ways that
-# break comparison behaviours.
-set(FFAST_MATH_SAFE "-fno-math-errno  -fno-rounding-math -fno-signaling-nans -fcx-limited-range")
 
 set(OPT_FLAGS_dbg "-DDEBUG ${CMAKE_C_FLAGS_DEBUG}")
-set(OPT_FLAGS_std "${FFAST_MATH_SAFE} -O2 -funroll-loops -DNDEBUG")
+set(OPT_FLAGS_std "-O2 -funroll-loops -DNDEBUG")
 set(OPT_FLAGS_sse41 "${OPT_FLAGS_std} -march=core2 -msse4.1")
 set(OPT_FLAGS_avx1 "${OPT_FLAGS_std}  -march=corei7-avx -mavx256-split-unaligned-load -mavx256-split-unaligned-store")
 

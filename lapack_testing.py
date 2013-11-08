@@ -88,7 +88,7 @@ print "instruction set is: " + instr_set
 # process options
 os.chdir(dir)
 execution=1
-summary="\n\t\t\t-->   LAPACK TESTING SUMMARY  <--\n";
+summary="\n\t\t\t-->   LAPACK TESTING SUMMARY FOR INSTRUCTION SET "+instr_set+"  <--\n";
 if with_file: summary+= "\t\tProcessing LAPACK Testing output found in the "+dir+" direcory\n";
 summary+="SUMMARY             \tnb test run \tnumerical error   \tother error  \n";
 summary+="================   \t===========\t=================\t================  \n";
@@ -322,3 +322,20 @@ else:
 
 # This may close the sys.stdout stream, so make it the last statement
 f.close()
+
+# check number of tests run and make sure it wasn't zero
+if(list_results[0][4]==0):
+  print "No tests ran, failing as a result."
+  exit(1)
+
+# check summary and fail if tests failed
+if(list_results[1][4]>0):
+  print "Failing as "+instr_set+". "+str(list_results[1][4])+" tests failed on numerical error."
+  exit(1)
+if(list_results[2][4]>0):
+  print "Failing as "+instr_set+". "+str(list_results[2][4])+" tests failed on other error."
+  exit(1)
+
+# all tests that ran passed
+print "Pass for "+instr_set+". "+str(list_results[0][4])+" tests passed."
+exit(0)

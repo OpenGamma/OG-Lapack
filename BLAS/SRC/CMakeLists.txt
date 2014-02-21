@@ -144,6 +144,11 @@ add_multitarget_library(ogxerbla
                         TARGETS ${TARGET_TYPES}
                         )
 
+add_multitarget_export(ogxerbla
+                        EXPORTNAME "LAPACK_EXPORTS"
+                        TARGETS ${TARGET_TYPES}
+                       )
+
 set(LINK_MULTILIBRARIES ogblas ogxerbla)
 if(UNIX)
   set(LINK_LIBRARIES m)
@@ -159,3 +164,8 @@ add_multitarget_library(ogblas
                         LINK_MULTILIBRARIES ${LINK_MULTILIBRARIES}
                         LINK_LIBRARIES ${LINK_LIBRARIES}
                         )
+
+add_multitarget_export(ogblas
+                        EXPORTNAME "LAPACK_EXPORTS"
+                        TARGETS ${TARGET_TYPES}
+                       )

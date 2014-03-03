@@ -422,3 +422,8 @@ add_multitarget_library(oglapack
                         LINK_MULTILIBRARIES ${BLAS_LIBRARIES} ${XBLAS_LIBRARY} ogxerbla
                         LINK_LIBRARIES "")
 
+
+add_multitarget_export(oglapack
+                        EXPORTNAME "LAPACK_EXPORTS"
+                        TARGETS ${TARGET_TYPES}
+                       )

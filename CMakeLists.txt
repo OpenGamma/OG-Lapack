@@ -6,6 +6,12 @@
 
 cmake_minimum_required (VERSION 2.8.6)
 
+if(CMAKE_MAJOR_VERSION MATCHES 2 AND
+     CMAKE_MINOR_VERSION MATCHES 8 AND
+     CMAKE_PATCH_VERSION MATCHES 12)
+  cmake_policy(SET CMP0022 OLD)
+endif()
+
 include(CMakeForceCompiler)
 
 if(APPLE OR WIN32)

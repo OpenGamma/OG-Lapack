@@ -1,3 +1,9 @@
+#
+# Portions Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+#
+# Please see distribution for license.
+#
+
 #######################################################################
 #  This is the makefile to create a library of the test matrix
 #  generators used in LAPACK.  The files are organized as follows:

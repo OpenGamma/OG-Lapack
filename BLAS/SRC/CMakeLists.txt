@@ -1,3 +1,9 @@
+#
+# Portions Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+#
+# Please see distribution for license.
+#
+
 #######################################################################
 #  This is the makefile to create a library for the BLAS.
 #  The files are grouped as follows:

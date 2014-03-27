@@ -1,4 +1,10 @@
 #
+# Portions Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+#
+# Please see distribution for license.
+#
+
+#
 # For further details regarding this file, 
 # see http://www.vtk.org/Wiki/CMake_Testing_With_CTest#Customizing_CTest
 #

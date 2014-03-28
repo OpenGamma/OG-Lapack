@@ -10,7 +10,7 @@ include( CheckCPUID )
 CheckCPUID()
 
 # Create a library for multiple target instruction sets. Note that this is
-# specialised to its use in Nyqwk2 and does not fully provide all of the
+# specialised to its use in OG-Maths and does not fully provide all of the
 # functionality that can be provided by add_library and set_target_properties.
 # One instance of the library is created for each of the TARGETS.
 
@@ -43,7 +43,7 @@ function(add_multitarget_library _TARGET_NAME)
 endfunction()
 
 # Create a binary for multiple target instruction sets. Note that this is
-# specialised to its use in Nyqwk2 and does not fully provide all of the
+# specialised to its use in OG-Maths and does not fully provide all of the
 # functionality that can be provided by add_library and set_target_properties.
 # One instance of the library is created for each of the TARGETS.
 

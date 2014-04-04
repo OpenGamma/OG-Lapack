@@ -54,6 +54,7 @@ endif()
 
 if(WIN32)
   set(CMAKE_THREAD_LIBS_INIT -mthreads)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pipe")
 else()
   # we force -pthread in preference to -lpthread because it sets -D_REENTRANT
   set(THREADS_HAVE_PTHREAD_ARG "THREADS_HAVE_PTHREAD_ARG")

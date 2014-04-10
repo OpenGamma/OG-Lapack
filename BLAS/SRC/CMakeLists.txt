@@ -135,7 +135,7 @@ if(BLAS_COMPLEX16)
 	${ALLBLAS} ${ZBLAS2} ${ZBLAS3})
 endif()
 
-set(XERBLA xerbla.f)
+set(XERBLA xerbla_handle.f90 xerbla.f90)
 
 add_multitarget_library(ogxerbla
                         VERSION ${LAPACK_VERSION}

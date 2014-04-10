@@ -26,7 +26,9 @@ function(add_multitarget_library _TARGET_NAME)
     set_target_properties(${LIBNAME} PROPERTIES
                           VERSION ${MTLIB_VERSION}
                           SOVERSION ${MTLIB_SOVERSION}
-                          COMPILE_FLAGS ${OPT_FLAGS_${TARGET}})
+                          COMPILE_FLAGS ${OPT_FLAGS_${TARGET}}
+                          Fortran_MODULE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${LIBNAME}.dir"
+                          )
     foreach(LINK_LIB ${MTLIB_LINK_MULTILIBRARIES})
       target_link_libraries(${LIBNAME} ${LINK_LIB}_${TARGET})
     endforeach()

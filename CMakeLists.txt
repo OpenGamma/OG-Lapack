@@ -129,6 +129,15 @@ set(DSECOND_SRC  ${LAPACK_SOURCE_DIR}/INSTALL/dsecnd_${TIME_FUNC}.f)
 
 add_subdirectory(TESTING)
 
+# Add version info file
+if(NOT DEFINED BUILDNUMBER)
+  set(BUILDNUMBER local)
+endif()
+add_custom_target(verinfo ALL
+                  ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/CMAKE/verinfo.py ${CMAKE_BINARY_DIR}/verinfo.yaml ${JAR_VERSION} ${BUILDNUMBER}
+                  COMMENT "Generating version info")
+
+
 # done
 message("
   Package " ${CMAKE_PROJECT_NAME} " version " ${LAPACK_VERSION} "

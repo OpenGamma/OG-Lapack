@@ -4,7 +4,7 @@
 # Please see distribution for license.
 #
 
-import platform, sys, subprocess
+import platform, sys, subprocess, time
 from yaml import load, dump
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
@@ -27,7 +27,9 @@ def generate_verinfo(project, revision, buildnumber):
         pass
     d = { 'project': project, 'revision': revision, \
           'platforms': [platform_code()],
-          'buildnumber': buildnumber }
+          'buildnumber': buildnumber,
+          'localtime': time.strftime('%Y/%m/%d %H:%M:%S'),
+          'timestamp': time.time() }
     return d
 
 def main():

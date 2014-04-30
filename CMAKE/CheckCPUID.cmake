@@ -13,10 +13,15 @@
 
 macro( CheckCPUID )
   if(NOT DEFINED CPUID_CACHED)
-    set(CPUID_CACHED TRUE CACHE INTERNAL "Whether CPUID has run")
     try_run(CPUID_FLAG CPUID_COMPILE_RESULT
             ${CMAKE_BINARY_DIR}
             ${CMAKE_SOURCE_DIR}/CMAKE/cmcpuid.c)
+
+    if(NOT ${CPUID_COMPILE_RESULT})
+      message(FATAL_ERROR "Failed to compile CPUID check binary")
+    endif()
+
+    set(CPUID_CACHED TRUE CACHE INTERNAL "Whether CPUID has run")
 
     set(SUPPORT_dbg TRUE CACHE INTERNAL "Support for debug build")
     set(SUPPORT_std TRUE CACHE INTERNAL "Support for standard build")

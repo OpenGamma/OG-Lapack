@@ -1,3 +1,9 @@
+#
+# Portions Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+#
+# Please see distribution for license.
+#
+
 set(ALINTST  
    aladhd.f alaerh.f alaesm.f alahd.f alareq.f 
    alasum.f alasvm.f chkxer.f icopy.f ilaenv.f xlaenv.f xerbla.f)

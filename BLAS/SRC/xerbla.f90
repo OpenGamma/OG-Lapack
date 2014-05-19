@@ -1,6 +1,6 @@
 ! -----------------------------------------------------------------------------
 ! This distribution of LAPACK contains a modified version of xerbla.f
-! Copyright (c) 2014 - present OpenGamma, [Inc./Ltd.].
+! Copyright (c) 2014 - present OpenGamma, Ltd.
 ! It is present in a file called xerbla.f90 located within the source
 ! at ${ROOT}/BLAS/SRC/xerbla.f90
 !

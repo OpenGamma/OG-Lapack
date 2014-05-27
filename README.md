@@ -1,7 +1,7 @@
 Welcome to OpenGamma Lapack
 =========
 
-This is the OpenGamma-customised verion of the industry-standard linear algebra
+This is the OpenGamma-customised version of the industry-standard linear algebra
 package version 3.4.2. OG-Lapack is a dependency of
 [OG-Maths](https://github.com/OpenGamma/OG-Maths), and is included in
 the builds that it produces.

@@ -4,7 +4,7 @@
 ! It is present in a file called xerbla.f90 located within the source
 ! at ${ROOT}/BLAS/SRC/xerbla.f90
 !
-! Internally, we refer to this function as OG_xerbla(), however, due to the
+! Internally, we refer to this function as "OG xerbla", however, due to the
 ! number of references to this routine throughout LAPACK, we have not modified
 ! the name of the routine in this distribution.
 !

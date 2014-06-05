@@ -1,7 +1,7 @@
 OG-Lapack Installation
 ======================
 
-<!--- Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies. -->
+<!--- Copyright (C) 2014 - present by OpenGamma Inc. and the OpenGamma group of companies. -->
 
 Requirements
 ------------

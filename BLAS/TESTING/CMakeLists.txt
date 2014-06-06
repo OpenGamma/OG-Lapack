@@ -1,3 +1,9 @@
+#
+# Portions Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+#
+# Please see distribution for license.
+#
+
 #######################################################################
 #  This makefile creates the test programs for the BLAS 1 routines.
 #  The test files are grouped as follows:

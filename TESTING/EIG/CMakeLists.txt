@@ -1,3 +1,9 @@
+#
+# Portions Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+#
+# Please see distribution for license.
+#
+
 ########################################################################
 #  This is the makefile for the eigenvalue test program from LAPACK.
 #  The test files are organized as follows:

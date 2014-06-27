@@ -49,9 +49,10 @@ standards.
 
 -------------------------------------------------------------------------------
 
-**NOTE: All commits prior to SHA XXXX are missing one or more license notations,
-details of the licenses which apply to these prior versions can be found in the
-most current version of [LICENSE.txt](LICENSE.txt).**
+**NOTE: All commits prior to SHA [88e5be802e39d7ec8cd9366db6cd8d1e0bd14afe]
+(https://github.com/OpenGamma/OG-Lapack/commit/88e5be802e39d7ec8cd9366db6cd8d1e0bd14afe)
+are missing one or more license notations, details of the licenses which apply to 
+these prior versions can be found in the most current version of [LICENSE.txt](LICENSE.txt).**
 
 Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of
 companies.

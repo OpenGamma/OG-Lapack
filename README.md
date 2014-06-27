@@ -28,6 +28,27 @@ support and some additional commercial components. (The commercial components
 typically have dependencies with restrictive licensing incompatible with open
 source.) This README only refers to the open source components.
 
+-------------------------------------------------------------------------------
+
+This distribution of LAPACK contains a modified version of xerbla.f
+Copyright (c) 2014 - present OpenGamma, Inc. and the OpenGamma group of
+companies.
+It is present in a file called xerbla.f90 located within the source
+at ${ROOT}/BLAS/SRC/xerbla.f90
+
+Internally, we refer to this function as "OG xerbla", however, due to the
+number of references to this routine throughout LAPACK, we have not modified 
+the name of the routine in this distribution.
+
+The modifications we made to the XERBLA() subroutine in xerbla.f90 include:
+ - The use of a XERBLA_HANDLE module (see file xerbla_handle.f90) to allow a
+global state for deciding whether subroutine XERBLA() should call "STOP"
+or not. See local modification note in the source.
+ - The source now compiles under (though does not comply with) Fortran 90
+standards.
+
+-------------------------------------------------------------------------------
+
 **NOTE: All commits prior to SHA XXXX are missing one or more license notations,
 details of the licenses which apply to these prior versions can be found in the
 most current version of [LICENSE.txt](LICENSE.txt).**

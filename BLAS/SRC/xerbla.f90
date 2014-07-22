@@ -97,7 +97,7 @@
 !     ..
 !     .. Executable Statements ..
 !
-      print*,"IN XERBLA FROM SRC/LAPACK"
+      print*,"IN XERBLA FROM BLAS/SRC"
       WRITE( *, FMT = 9999 )SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO
 !
 ! Local modification, stop is only called if xerbla death switch is non-zero

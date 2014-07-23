@@ -91,8 +91,10 @@ CheckLAPACKCompilerFlags()
 
 # Multi-targets need to be built
 include(MultiInstructionTarget)
-set(TARGET_TYPES dbg std sse41 avx1)
-
+set(TARGET_TYPES dbg std)
+if(BITS64)
+  set(TARGET_TYPES ${TARGET_TYPES} sse41 avx1)
+endif()
 
 set(OPT_FLAGS_dbg "-DDEBUG ${CMAKE_C_FLAGS_DEBUG}")
 set(OPT_FLAGS_std "-O2 -funroll-loops -DNDEBUG")

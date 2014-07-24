@@ -96,8 +96,12 @@ if(BITS64)
   set(TARGET_TYPES ${TARGET_TYPES} sse41 avx1)
 endif()
 
-set(OPT_FLAGS_dbg "-DDEBUG ${CMAKE_C_FLAGS_DEBUG}")
-set(OPT_FLAGS_std "-O2 -funroll-loops -DNDEBUG")
+if(WIN32 AND BITS32)
+  set(PLATFORM_FLAGS "-ffloat-store")
+endif()
+
+set(OPT_FLAGS_dbg "${PLATFORM_FLAGS} -DDEBUG ${CMAKE_C_FLAGS_DEBUG}")
+set(OPT_FLAGS_std "${PLATFORM_FLAGS} -O2 -funroll-loops -DNDEBUG")
 set(OPT_FLAGS_sse41 "${OPT_FLAGS_std} -march=core2 -msse4.1")
 set(OPT_FLAGS_avx1 "${OPT_FLAGS_std}  -march=corei7-avx -mavx256-split-unaligned-load -mavx256-split-unaligned-store")
 

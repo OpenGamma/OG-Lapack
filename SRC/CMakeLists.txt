@@ -433,3 +433,7 @@ add_multitarget_export(oglapack
                         EXPORTNAME "LAPACK_EXPORTS"
                         TARGETS ${TARGET_TYPES}
                        )
+
+FILE(APPEND "${PROJECT_BINARY_DIR}/LAPACK_EXPORTS.cmake" "# Set LAPACK_SRC_DIR for future use.\n")
+FILE(APPEND "${PROJECT_BINARY_DIR}/LAPACK_EXPORTS.cmake" "set(LAPACK_SRC_DIR \"${LAPACK_SOURCE_DIR}\")\n")
+
